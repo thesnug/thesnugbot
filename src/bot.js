@@ -34,7 +34,7 @@ function onFollow(event) {
   response = response.replace(regex, screenName);
 
   /* reply to every user that follows this account */
-  sendDM({ screen_name: screenName, text: response });
+  postTweet(response);
 }
 
 /* post tweet */
