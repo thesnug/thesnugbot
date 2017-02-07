@@ -61,7 +61,7 @@ function postTweet(text) {
 /* direct message */
 function sendDM(message) {
   const tweet = {
-    screen_name: message.screen_name
+    screen_name: message.screen_name,
     text: message.text
   };
 
