@@ -43,9 +43,9 @@ function postTweet(text) {
     status: text
   };
 
-  const username = text.search(username);
+  const screenName = text.search(username);
 
-  if (username !== -1) {
+  if (screenName !== -1) {
     console.log('[tweet][error] cannot reply to self – skipping');
   } else {
     Twitter.post('statuses/update', tweet, function(err, data, response) {
