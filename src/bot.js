@@ -34,7 +34,7 @@ function onFollow(event) {
   response = response.replace(regex, screenName);
 
   /* reply to every user that follows this account */
-  postTweet(response);
+  sendDM({ screen_name: screenName, text: response });
 }
 
 /* post tweet */
@@ -49,6 +49,28 @@ function postTweet(text) {
     console.log('[tweet][error] cannot reply to self – skipping');
   } else {
     Twitter.post('statuses/update', tweet, function(err, data, response) {
+      if (err) {
+        console.log('[tweet][error] cannot reply to follower – ' + err.message);
+      } else {
+        console.log('[tweet][success] replied');
+      }
+    });
+  }
+}
+
+/* direct message */
+function sendDM(message) {
+  const tweet = {
+    screen_name: message.screen_name
+    text: message.text
+  };
+
+  const screenName = message.text.search(username);
+
+  if (screenName !== -1) {
+    console.log('[tweet][error] cannot reply to self – skipping');
+  } else {
+    Twitter.post('direct_messages/new', tweet, function(err, data, response) {
       if (err) {
         console.log('[tweet][error] cannot reply to follower – ' + err.message);
       } else {
